@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CompanyController extends Controller
 {
     //
     public function index()
     {
-        return view('admin.company.index', ['companies' => Company::all()]);
+        return view('admin.company.index', ['companies' => Company::paginate(10)]);
     }
     public function create()
     {
@@ -30,6 +32,24 @@ class CompanyController extends Controller
         ]);
         $company_data['logo'] = request()->file('logo')->store('company_logos');
         Company::create($company_data);
+
+        // finding the admin
+        $admin_email = User::select()->where('name', 'prince')->first();
+        $company = 'Company';
+
+        $mail_data = [
+            'recipient' => $admin_email['email'],
+            'fromEmail' => 'npprince47@gmail.com',
+            'fromName' => 'Business Management System',
+            'subject' => 'New ' . $company . ' Created',
+            'body' => 'Dear  ' . $admin_email['name'] . ' , New '.$company.' called ' . $company_data['name'] . ' , have been created '
+
+        ];
+        Mail::send('mail.email-template', $mail_data, function ($message) use ($mail_data) {
+            $message->to($mail_data['recipient'])
+                ->from($mail_data['fromEmail'], $mail_data['fromName'])
+                ->subject($mail_data['subject']);
+        });
 
         return redirect('/company')->with('success', 'Company created successfully!');;
     }

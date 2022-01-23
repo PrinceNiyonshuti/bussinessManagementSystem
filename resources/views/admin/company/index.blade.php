@@ -73,13 +73,15 @@
                                     </tr>
                                     @endforeach
 
+
                                 </tbody>
                             </table>
+                            {{ $companies->links() }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <x-alert-message/>
+    <x-alert-message />
 </x-layout>

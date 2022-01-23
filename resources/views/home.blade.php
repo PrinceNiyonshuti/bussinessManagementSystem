@@ -1,5 +1,5 @@
 <x-layout>
-        <!-- hero section -->
+    <!-- hero section -->
     <section class="bg-gray-200">
         <div class="flex justify-center">
             <div class="px-20 py-32 lg:w-1/2">
@@ -30,67 +30,35 @@
                 qui officia
                 deserunt mollit anim id est laborum.</p>
 
-            <img class="object-cover object-center w-full mt-16 rounded-md shadow h-80" src="https://source.unsplash.com/collection/190727/300x300">
+            <img class="object-cover object-fill w-full mt-16 rounded-md shadow h-80" src="bg.png">
         </div>
     </section>
 
 
-    <!-- Blog section -->
+    <!-- company section -->
     <section class="container mx-auto mt-20" id="company">
         <div class="flex flex-col items-center justify-center mb-12">
-            <h2 class="text-3xl font-semibold text-gray-800">Company we work with</h2>
+            <h2 class="text-3xl font-semibold text-gray-800">Company we work with </h2>
             <div class="w-24 border-b-4 border-indigo-400"></div>
         </div>
         <div class="grid gap-2 md:grid-cols-4">
-            <div class="relative mx-6">
-                <div class="bg-white rounded-lg shadow-md">
-                    <img src="https://source.unsplash.com/collection/190727/300x300" class="w-full rounded-t-lg">
-                    <div class="absolute bottom-32 right-4 text-white bg-indigo-500 px-2 py-0.5 rounded-xl">
-                        Category
-                    </div>
-                    <div class="p-6">
-                        <h2 class="mb-2 text-2xl font-medium text-gray-800">Blog headline 1</h2>
-                        <a href="#" class="text-base text-indigo-600">Read More </a>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mx-6">
-                <div class="bg-white rounded-lg shadow-md">
-                    <img src="https://source.unsplash.com/collection/190727/300x300" class="w-full rounded-t-lg">
-                    <div class="absolute bottom-32 right-4 text-white bg-indigo-500 px-2 py-0.5 rounded-xl">
-                        Category
-                    </div>
-                    <div class="p-6">
-                        <h2 class="mb-2 text-2xl font-medium text-gray-800">Blog headline 2</h2>
-                        <a href="#" class="text-base text-indigo-600">Read More </a>
-                    </div>
-                </div>
-            </div>
-            <div class="relative mx-6">
-                <div class="bg-white rounded-lg shadow-md">
-                    <img src="https://source.unsplash.com/collection/190727/300x300" class="w-full rounded-t-lg">
-                    <div class="absolute bottom-32 right-4 text-white bg-indigo-500 px-2 py-0.5 rounded-xl">
-                        Category
-                    </div>
-                    <div class="p-6">
-                        <h2 class="mb-2 text-2xl font-medium text-gray-800">Blog headline 3</h2>
-                        <a href="#" class="text-base text-indigo-600">Read More </a>
 
-                    </div>
-                </div>
-            </div>
+            @foreach ($companies as $company)
             <div class="relative mx-6">
                 <div class="bg-white rounded-lg shadow-md">
-                    <img src="https://source.unsplash.com/collection/190727/300x300" class="w-full rounded-t-lg">
+                    <img src="storage/{{ $company->logo }}" class="w-full rounded-t-lg object-cover h-48 ">
                     <div class="absolute bottom-32 right-4 text-white bg-indigo-500 px-2 py-0.5 rounded-xl">
-                        Category
+                        {{ $company->address }}
                     </div>
-                    <div class="p-6">
-                        <h2 class="mb-2 text-2xl font-medium text-gray-800">Blog headline 4</h2>
+                    <div class="p-6 content-center">
+                        <h2 class="mb-2 text-2xl font-medium text-gray-800">{{ $company->name }}</h2>
                         <a href="#" class="text-base text-indigo-600">Read More </a>
                     </div>
                 </div>
             </div>
+            @endforeach
+
+
         </div>
     </section>
 

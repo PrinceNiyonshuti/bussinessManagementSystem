@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LoginController;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', [
+        'companies' => Company::latest()->get(),
+    ]);
 });
 
 Route::get('/login', [LoginController::class, 'create'])->middleware('guest');
