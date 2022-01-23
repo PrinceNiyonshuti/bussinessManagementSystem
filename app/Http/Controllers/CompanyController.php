@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -19,25 +20,6 @@ class CompanyController extends Controller
 
     public function store()
     {
-        // $newDish = new Company;
-        // $newDish->name = $request['name'];
-        // $newDish->address = $request['address'];
-        // $newDish->telephone = $request['telephone'];
-        // $newDish->website = $request['website'];
-        // $newDish->director = $request['director'];
-        // if (isset($request['logo'])) {
-        //     $newDish->logo = $request->file('logo')->store('company_logos');
-        // } else {
-        //     $newDish->logo = $request['null'];
-        // }
-        // $newDish->save();
-
-        // $newdata = request()->validate(
-        //     ['name' => 'required']
-        // );
-
-        // Company::create($newdata);
-
         $company_data = request()->validate([
             'name' => 'required',
             'address' => 'required',
@@ -46,9 +28,35 @@ class CompanyController extends Controller
             'director' => 'required',
             'logo' => 'required|image'
         ]);
-        $company_data['logo'] = request()->file('logo')->store('logos');
+        $company_data['logo'] = request()->file('logo')->store('company_logos');
         Company::create($company_data);
 
         return redirect('/company');
+    }
+
+    public function edit(Company $company)
+    {
+        return view('admin.company.edit', [
+            'company' => $company
+        ]);
+    }
+
+    public function update(Company $company)
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'telephone' => ['required'],
+            'website' => 'required',
+            'director' => 'required',
+            'logo' => 'image'
+        ]);
+
+        if (isset($attributes['logo'])) {
+            $attributes['logo'] = request()->file('logo')->store('company_logos');
+        }
+
+        $company->update($attributes);
+        return redirect('/company')->with('success', 'Company updated successfully!');
     }
 }

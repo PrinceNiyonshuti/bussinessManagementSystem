@@ -30,4 +30,6 @@ Route::get('/company', [CompanyController::class, 'index']);
 Route::prefix('/company')->group(function () {
     Route::get('/new', [CompanyController::class, 'create']);
     Route::post('/save', [CompanyController::class, 'store']);
+    Route::get('/{company}/edit', [CompanyController::class, 'edit']);
+    Route::patch('{company}', [CompanyController::class, 'update']);
 });
