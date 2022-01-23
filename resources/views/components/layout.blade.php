@@ -16,7 +16,7 @@
     <header class="bg-white" x-data="{ isOpen: false }">
         <nav class="container px-8 py-4 mx-auto md:flex md:justify-between md:items-center">
             <div class="flex items-center justify-between">
-                <a class="text-xl font-bold text-gray-900 md:text-2xl" href="#">Logo</a>
+                <a class="text-xl font-bold text-gray-900 md:text-2xl" href="/">Logo</a>
 
                 <!-- Mobile menu button -->
                 <div @click="isOpen = !isOpen" class="flex md:hidden">
@@ -31,19 +31,16 @@
 
             <div :class="isOpen ? 'flex' : 'hidden'" class="flex-col mt-2 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0">
                 @auth
-                <button class="text-xs font-bold uppercase">Welcome {{ auth()->user()->name }}</button>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#">Companies</a>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#">Employees</a>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#">Clients</a>
-                <a class="px-4 py-2 text-center text-white border bg-gradient-to-b from-blue-300 to-blue-500 rounded-2xl hover:shadow-xl" href="#" @click.prevent="document.querySelector('#logout-form').submit()">Log out</a>
+                <a class="{{ request()->is('dashboard') ? 'text-indigo-400' : 'text-gray-800 transform hover:text-indigo-400' }}" href="/dashboard">Dashboard</a>
+                <a class="px-4 py-2 text-center text-white border bg-gradient-to-b from-indigo-300 to-indigo-500 rounded-2xl hover:shadow-xl" href="#" @click.prevent="document.querySelector('#logout-form').submit()">Log out</a>
                 <form id="logout-form" method="POST" action="/logout" class="hidden">
                     @csrf
                 </form>
                 @else
-                <a class="text-gray-800 transform hover:text-blue-400" href="#">Home</a>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#about">About us</a>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#company">Company</a>
-                <a class="px-4 py-2 text-center text-white border bg-gradient-to-b from-blue-300 to-blue-500 rounded-2xl hover:shadow-xl" href="/login">Login</a>
+                <a class="text-gray-800 transform hover:text-indigo-400" href="#">Home</a>
+                <a class="text-gray-800 transform hover:text-indigo-400" href="#about">About us</a>
+                <a class="text-gray-800 transform hover:text-indigo-400" href="#company">Company</a>
+                <a class="px-4 py-2 text-center text-white border bg-gradient-to-b from-indigo-300 to-indigo-500 rounded-2xl hover:shadow-xl" href="/login">Login</a>
                 @endauth
 
 
