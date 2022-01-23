@@ -23,11 +23,11 @@ class CompanyController extends Controller
     public function store()
     {
         $company_data = request()->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'telephone' => 'required',
+            'name' => 'required|min:3|max:100',
+            'address' => 'required|min:3|max:100',
+            'telephone' => 'required|min:10',
             'website' => 'required',
-            'director' => 'required',
+            'director' => 'required|min:3|max:100',
             'logo' => 'required|image'
         ]);
         $company_data['logo'] = request()->file('logo')->store('company_logos');
@@ -42,7 +42,7 @@ class CompanyController extends Controller
             'fromEmail' => 'npprince47@gmail.com',
             'fromName' => 'Business Management System',
             'subject' => 'New ' . $company . ' Created',
-            'body' => 'Dear  ' . $admin_email['name'] . ' , New '.$company.' called ' . $company_data['name'] . ' , have been created '
+            'body' => 'Dear  ' . $admin_email['name'] . ' , New ' . $company . ' called ' . $company_data['name'] . ' , have been created '
 
         ];
         Mail::send('mail.email-template', $mail_data, function ($message) use ($mail_data) {
@@ -64,11 +64,11 @@ class CompanyController extends Controller
     public function update(Company $company)
     {
         $attributes = request()->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'telephone' => ['required'],
+            'name' => 'required|min:3|max:100',
+            'address' => 'required|min:3|max:100',
+            'telephone' => 'required|min:10',
             'website' => 'required',
-            'director' => 'required',
+            'director' => 'required|min:3|max:100',
             'logo' => 'image'
         ]);
 
