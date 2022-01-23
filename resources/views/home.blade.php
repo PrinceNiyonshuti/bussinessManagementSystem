@@ -1,45 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Management System</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
-
-</head>
-
-<body>
-
-    <header class="bg-white" x-data="{ isOpen: false }">
-        <nav class="container px-8 py-4 mx-auto md:flex md:justify-between md:items-center">
-            <div class="flex items-center justify-between">
-                <a class="text-xl font-bold text-gray-900 md:text-2xl" href="#">Logo</a>
-
-                <!-- Mobile menu button -->
-                <div @click="isOpen = !isOpen" class="flex md:hidden">
-                    <button type="button" class="text-gray-800 hover:text-gray-400 focus:outline-none focus:text-gray-400" aria-label="toggle menu">
-                        <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
-                            <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <div :class="isOpen ? 'flex' : 'hidden'" class="flex-col mt-2 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0">
-                <a class="text-gray-800 transform hover:text-blue-400" href="#">Home</a>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#about">About us</a>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#company">Company</a>
-                <a class="text-gray-800 transform hover:text-blue-400" href="#">Service</a>
-                <a class="px-4 py-2 text-center text-white border bg-gradient-to-b from-blue-300 to-blue-500 rounded-2xl hover:shadow-xl" href="#">Login</a>
-            </div>
-        </nav>
-    </header>
-
-    <!-- hero section -->
+<x-layout>
+        <!-- hero section -->
     <section class="bg-gray-200">
         <div class="flex justify-center">
             <div class="px-20 py-32 lg:w-1/2">
@@ -176,45 +136,4 @@
             </div>
         </div>
     </section>
-
-    <section class="px-10 py-32 bg-gray-200">
-        <div class="p-10 mx-auto bg-white rounded-lg shadow md:w-3/4 lg:w-1/2">
-            <h3 class="text-2xl font-bold text-center">Form</h3>
-            <form action="">
-                <div class="lg:flex">
-                    <div class="pr-1 mt-2 lg:w-1/2">
-                        <input type="text" name="name" class="w-full p-3 border border-gray-300 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter you name">
-                    </div>
-                    <div class="pr-1 mt-2 lg:ml-2 lg:w-1/2">
-                        <input type="text" name="name" class="w-full p-3 border border-gray-300 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter you Email">
-                        <p class="mt-1 ml-4 text-sm text-red-400">Email field is required!</p>
-                    </div>
-                </div>
-                <div class="block pr-1 mt-2">
-                    <input type="text" name="name" class="w-full p-3 border border-gray-300 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter you name">
-                </div>
-                <div>
-                    <textarea name="message" cols="10" rows="3" placeholder="message" class="w-full p-3 mt-3 border border-gray-300 shadow rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600"></textarea>
-                </div>
-                <div class="flex justify-center">
-                    <button type="submit" class="px-8 py-2 text-white bg-blue-400 rounded-xl">Submit</button>
-                </div>
-
-            </form>
-        </div>
-    </section>
-
-    <!-- footer -->
-    <footer class="text-white bg-gray-100">
-        <div class="container flex items-center px-5 py-8 mx-auto ">
-            <p class="text-sm text-black">
-                @
-                2021 Any —
-                <a href="#" class="ml-1 text-black" target="_blank">Zatec - Test</a>
-            </p>
-        </div>
-    </footer>
-
-</body>
-
-</html>
+</x-layout>
