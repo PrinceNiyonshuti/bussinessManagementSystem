@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,10 @@ Route::get('/login', [LoginController::class, 'create'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'store'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
-Route::get('/dashboard', [AdminController::class,'create'])->middleware('auth');
+Route::get('/dashboard', [AdminController::class, 'create'])->middleware('auth');
+
+Route::get('/company', [CompanyController::class, 'index']);
+Route::prefix('/company')->group(function () {
+    Route::get('/new', [CompanyController::class, 'create']);
+    Route::post('/save', [CompanyController::class, 'store']);
+});
