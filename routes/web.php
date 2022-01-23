@@ -32,4 +32,5 @@ Route::prefix('/company')->group(function () {
     Route::post('/save', [CompanyController::class, 'store']);
     Route::get('/{company}/edit', [CompanyController::class, 'edit']);
     Route::patch('{company}', [CompanyController::class, 'update']);
+    Route::delete('{company}', [CompanyController::class, 'destroy']);
 });

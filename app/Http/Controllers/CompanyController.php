@@ -31,7 +31,7 @@ class CompanyController extends Controller
         $company_data['logo'] = request()->file('logo')->store('company_logos');
         Company::create($company_data);
 
-        return redirect('/company');
+        return redirect('/company')->with('success', 'Company created successfully!');;
     }
 
     public function edit(Company $company)
@@ -58,5 +58,11 @@ class CompanyController extends Controller
 
         $company->update($attributes);
         return redirect('/company')->with('success', 'Company updated successfully!');
+    }
+
+    public function destroy(Company $company)
+    {
+        $company->delete();
+        return back()->with('success', 'Company Deleted successfully!');
     }
 }
