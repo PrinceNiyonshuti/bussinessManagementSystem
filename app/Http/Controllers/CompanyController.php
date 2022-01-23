@@ -25,7 +25,7 @@ class CompanyController extends Controller
         $company_data = request()->validate([
             'name' => 'required|min:3|max:100',
             'address' => 'required|min:3|max:100',
-            'telephone' => 'required|min:10',
+            'telephone' => 'required|min:10|numeric',
             'website' => 'required',
             'director' => 'required|min:3|max:100',
             'logo' => 'required|image'
@@ -66,7 +66,7 @@ class CompanyController extends Controller
         $attributes = request()->validate([
             'name' => 'required|min:3|max:100',
             'address' => 'required|min:3|max:100',
-            'telephone' => 'required|min:10',
+            'telephone' => 'required|min:10|numeric',
             'website' => 'required',
             'director' => 'required|min:3|max:100',
             'logo' => 'image'
