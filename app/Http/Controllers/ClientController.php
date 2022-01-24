@@ -16,6 +16,7 @@ class ClientController extends Controller
     {
         return view('admin.client.index', [
             'clients' => Client::latest()->paginate(10)
+            // 'clients' => Client::with('company')->get()
         ]);
     }
     public function create()
@@ -63,7 +64,7 @@ class ClientController extends Controller
             'name' => 'required|min:3|max:100',
             'surname' => 'required|min:3|max:100',
             'address' => 'required',
-            'telephone' => ['required','min:9','numeric',Rule::unique('clients','telephone')->ignore($client->id)]
+            'telephone' => ['required', 'min:9', 'numeric', Rule::unique('clients', 'telephone')->ignore($client->id)]
         ]);
 
         $client->update($attributes);
