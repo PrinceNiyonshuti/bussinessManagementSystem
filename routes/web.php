@@ -29,7 +29,7 @@ Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 Route::get('/dashboard', [AdminController::class, 'create'])->middleware('auth');
 
-Route::get('/company', [CompanyController::class, 'index']);
+Route::get('/company', [CompanyController::class, 'index'])->middleware('auth');
 Route::middleware('auth')->prefix('/company')->group(function () {
     Route::get('/new', [CompanyController::class, 'create']);
     Route::post('/save', [CompanyController::class, 'store']);
@@ -39,7 +39,7 @@ Route::middleware('auth')->prefix('/company')->group(function () {
 });
 
 
-Route::get('/employee', [EmployeeController::class, 'index']);
+Route::get('/employee', [EmployeeController::class, 'index'])->middleware('auth');
 Route::middleware('auth')->prefix('/employee')->group(function () {
     Route::get('/new', [EmployeeController::class, 'create']);
     Route::post('/save', [EmployeeController::class, 'store']);
