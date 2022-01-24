@@ -7,7 +7,7 @@
                 </svg>
             </div>
             <div class="mx-4">
-                <h4 class="text-2xl font-semibold text-gray-700">100</h4>
+                <h4 class="text-2xl font-semibold text-gray-700">{{ $companies }}</h4>
                 <div class="text-gray-500">All Companies</div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 </svg>
             </div>
             <div class="mx-4">
-                <h4 class="text-2xl font-semibold text-gray-700">30</h4>
+                <h4 class="text-2xl font-semibold text-gray-700">{{ $employees }}</h4>
                 <div class="text-gray-500">All Employees</div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 </svg>
             </div>
             <div class="mx-4">
-                <h4 class="text-2xl font-semibold text-gray-700">1000</h4>
+                <h4 class="text-2xl font-semibold text-gray-700">{{ $clients }}</h4>
                 <div class="text-gray-500">All Clients</div>
             </div>
         </div>
