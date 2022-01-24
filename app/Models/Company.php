@@ -14,4 +14,8 @@ class Company extends Model
         $this->hasMany(Employee::class);
     }
 
+    public function clients()
+    {
+        $this->hasMany(Client::class);
+    }
 }
