@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
@@ -46,4 +47,13 @@ Route::middleware('auth')->prefix('/employee')->group(function () {
     Route::get('/{employee}/edit', [EmployeeController::class, 'edit']);
     Route::patch('{employee}', [EmployeeController::class, 'update']);
     Route::delete('{employee}', [EmployeeController::class, 'destroy']);
+});
+
+Route::get('/client', [ClientController::class, 'index'])->middleware('auth');
+Route::middleware('auth')->prefix('/client')->group(function () {
+    Route::get('/new', [ClientController::class, 'create']);
+    Route::post('/save', [ClientController::class, 'store']);
+    Route::get('/{client}/edit', [ClientController::class, 'edit']);
+    Route::patch('{client}', [ClientController::class, 'update']);
+    Route::delete('{client}', [ClientController::class, 'destroy']);
 });
