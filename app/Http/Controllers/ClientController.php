@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Company;
 use App\Models\User;
 use App\Notifications\NotifyAdmin;
 use Illuminate\Http\Request;
@@ -12,13 +13,13 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return view('admin.employee.index', [
-            'employees' => Client::latest()->paginate(10)
+        return view('admin.client.index', [
+            'clients' => Client::latest()->paginate(10)
         ]);
     }
     public function create()
     {
-        return view('admin.employee.create');
+        return view('admin.client.create');
     }
 
     public function store()
@@ -27,18 +28,19 @@ class ClientController extends Controller
             'company_id' => 'required|exists:companies,id',
             'name' => 'required|min:3|max:100',
             'surname' => 'required|min:3|max:100',
-            'email' => 'required|email|unique:employees,email',
-            'telephone' => 'required|min:9|numeric|unique:employees,telephone',
-            'emp_start_date' => 'required',
+            'address' => 'required',
+            'telephone' => 'required|min:9|numeric|unique:clients,telephone'
         ]);
         Client::create($client_data);
 
         // finding all the admins
         $admin = User::where('name', 'prince')->get();
+        $company = Company::select()->where('id', $client_data['company_id'])->first();
+        // \dd($company['name']);
 
         // defining notification data
         $notificationData = [
-            'body' => 'New client called ' . $client_data['name'] . ' , have been created',
+            'body' => 'New client called ' . $client_data['name'] . ' , have been created for ' . $company['name'] . ' company',
             'footer' => 'Thank you for using and trusting in Business Management System'
         ];
         Notification::send($admin, new NotifyAdmin($notificationData));
@@ -48,7 +50,7 @@ class ClientController extends Controller
 
     public function edit(Client $client)
     {
-        return view('admin.employee.edit', [
+        return view('admin.client.edit', [
             'employee' => $client
         ]);
     }
