@@ -22,13 +22,12 @@ class EmployeeController extends Controller
 
     public function store()
     {
-        // \dd(\request()->all());
         $employee_data = request()->validate([
             'company_id' => 'required|exists:companies,id',
             'name' => 'required|min:3|max:100',
             'surname' => 'required|min:3|max:100',
-            'email' => 'required|email',
-            'telephone' => 'required|min:10|numeric',
+            'email' => 'required|email|unique:employees,email',
+            'telephone' => 'required|min:9|numeric|unique:employees,telephone',
             'emp_start_date' => 'required',
         ]);
         $employee_data['emp_number'] = Str::random(7);
@@ -72,6 +71,6 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        return back()->with('success', 'Company Deleted successfully!');
+        return back()->with('success', 'Employee Deleted successfully!');
     }
 }
