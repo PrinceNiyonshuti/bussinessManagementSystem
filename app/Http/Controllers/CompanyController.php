@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\User;
+use App\Notifications\NotifyAdmin;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class CompanyController extends Controller
 {
@@ -34,22 +36,30 @@ class CompanyController extends Controller
         Company::create($company_data);
 
         // finding the admin
-        $admin_email = User::select()->where('name', 'prince')->first();
-        $company = 'Company';
+        $admin = User::where('name', 'prince')->get();
+        // dd($admin['fillable']);
 
-        $mail_data = [
-            'recipient' => $admin_email['email'],
-            'fromEmail' => 'npprince47@gmail.com',
-            'fromName' => 'Business Management System',
-            'subject' => 'New ' . $company . ' Created',
-            'body' => 'Dear  ' . $admin_email['name'] . ' , New ' . $company . ' called ' . $company_data['name'] . ' , have been created '
+        // $mail_data = [
+        //     'recipient' => $admin['email'],
+        //     'fromEmail' => 'npprince47@gmail.com',
+        //     'fromName' => 'Business Management System',
+        //     'subject' => 'New ' . $company . ' Created',
+        //     'body' => 'Dear  ' . $admin['name'] . ' , New ' . $company . ' called ' . $company_data['name'] . ' , have been created '
 
+        // ];
+        // Mail::send('mail.email-template', $mail_data, function ($message) use ($mail_data) {
+        //     $message->to($mail_data['recipient'])
+        //         ->from($mail_data['fromEmail'], $mail_data['fromName'])
+        //         ->subject($mail_data['subject']);
+        // });
+
+        // defining notification data
+        $notificationData = [
+            'body' => 'New company called ' . $company_data['name'] . ' , have been created',
+            'footer' => 'Thank you for using and trusting in Business Management System'
         ];
-        Mail::send('mail.email-template', $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['recipient'])
-                ->from($mail_data['fromEmail'], $mail_data['fromName'])
-                ->subject($mail_data['subject']);
-        });
+        // $admin->notify(new NotifyAdmin($notificationData));
+        Notification::send($admin, new NotifyAdmin($notificationData));
 
         return redirect('/company')->with('success', 'Company created successfully!');;
     }
