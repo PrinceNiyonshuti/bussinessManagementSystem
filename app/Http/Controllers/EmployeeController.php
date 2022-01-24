@@ -50,27 +50,23 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         return view('admin.employee.edit', [
-            'company' => $employee
+            'employee' => $employee
         ]);
     }
 
     public function update(Employee $employee)
     {
         $attributes = request()->validate([
+            'company_id' => 'required|exists:companies,id',
             'name' => 'required|min:3|max:100',
-            'address' => 'required|min:3|max:100',
+            'surname' => 'required|min:3|max:100',
+            'email' => 'required|email',
             'telephone' => 'required|min:10|numeric',
-            'website' => 'required',
-            'director' => 'required|min:3|max:100',
-            'logo' => 'image'
+            'emp_start_date' => 'required',
         ]);
 
-        if (isset($attributes['logo'])) {
-            $attributes['logo'] = request()->file('logo')->store('company_logos');
-        }
-
         $employee->update($attributes);
-        return redirect('/employee')->with('success', 'Company updated successfully!');
+        return redirect('/employee')->with('success', 'Employee updated successfully!');
     }
 
     public function destroy(Employee $employee)
