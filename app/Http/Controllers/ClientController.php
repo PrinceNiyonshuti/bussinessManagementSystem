@@ -56,17 +56,17 @@ class ClientController extends Controller
         ]);
     }
 
-    public function update(Client $client)
+    public function update(ClientRequest $request,$id)
     {
-        $attributes = request()->validate([
-            'company_id' => 'required|exists:companies,id',
-            'name' => 'required|min:3|max:100',
-            'surname' => 'required|min:3|max:100',
-            'address' => 'required',
-            'telephone' => ['required', 'min:9', 'numeric', Rule::unique('clients', 'telephone')->ignore($client->id)]
-        ]);
-
-        $client->update($attributes);
+        $existingClient = Client::find($id);
+        if ($existingClient) {
+            $existingClient->company_id = $request['company_id'];
+            $existingClient->name = $request['name'];
+            $existingClient->surname = $request['surname'];
+            $existingClient->address = $request['address'];
+            $existingClient->telephone = $request['telephone'];
+            $existingClient->save();
+        }
         return redirect('/client')->with('success', 'Client updated successfully!');
     }
 
