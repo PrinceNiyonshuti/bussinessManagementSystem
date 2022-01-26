@@ -56,22 +56,20 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function update(Company $company)
+    public function update(StoreCompanyRequest $request,$id)
     {
-        $attributes = request()->validate([
-            'name' => 'required|min:3|max:100',
-            'address' => 'required|min:3|max:100',
-            'telephone' => 'required|min:10|numeric',
-            'website' => 'required',
-            'director' => 'required|min:3|max:100',
-            'logo' => 'image'
-        ]);
-
-        if (isset($attributes['logo'])) {
-            $attributes['logo'] = request()->file('logo')->store('company_logos');
+        $existingCompany =  Company::find($id);
+        if($existingCompany){
+            $existingCompany->name = $request['name'];
+            $existingCompany->address = $request['address'];
+            $existingCompany->telephone = $request['telephone'];
+            $existingCompany->website = $request['website'];
+            $existingCompany->director = $request['director'];
+            if (isset($request['logo'])) {
+                $existingCompany->logo = $request->file('logo')->store('company_logos');
+            } 
+            $existingCompany->save();
         }
-
-        $company->update($attributes);
         return redirect('/company')->with('success', 'Company updated successfully!');
     }
 
