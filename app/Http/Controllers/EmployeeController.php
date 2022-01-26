@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,18 +23,17 @@ class EmployeeController extends Controller
         return view('admin.employee.create');
     }
 
-    public function store()
+    public function store(EmployeeRequest $request)
     {
-        $employee_data = request()->validate([
-            'company_id' => 'required|exists:companies,id',
-            'name' => 'required|min:3|max:100',
-            'surname' => 'required|min:3|max:100',
-            'email' => 'required|email|unique:employees,email',
-            'telephone' => 'required|min:9|numeric|unique:employees,telephone',
-            'emp_start_date' => 'required',
-        ]);
+        $employee_data = new Employee;
+        $employee_data->company_id = $request['company_id'];
+        $employee_data->name = $request['name'];
+        $employee_data->surname = $request['surname'];
+        $employee_data->email = $request['email'];
+        $employee_data->telephone = $request['telephone'];
+        $employee_data->emp_start_date = $request['emp_start_date'];
         $employee_data['emp_number'] = Str::random(7);
-        Employee::create($employee_data);
+        $employee_data->save();
 
         // finding all the admins
         $admin = User::where('name', 'prince')->get();
