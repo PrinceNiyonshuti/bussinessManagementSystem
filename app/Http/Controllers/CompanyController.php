@@ -36,7 +36,6 @@ class CompanyController extends Controller
 
         // finding the admin
         $admin = User::where('name', 'prince')->get();
-        // dd($admin['fillable']);
 
         // defining notification data
         $notificationData = [
@@ -67,7 +66,7 @@ class CompanyController extends Controller
             $existingCompany->director = $request['director'];
             if (isset($request['logo'])) {
                 $existingCompany->logo = $request->file('logo')->store('company_logos');
-            } 
+            }
             $existingCompany->save();
         }
         return redirect('/company')->with('success', 'Company updated successfully!');

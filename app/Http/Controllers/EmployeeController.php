@@ -55,18 +55,18 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function update(Employee $employee)
+    public function update(EmployeeRequest $request,$id)
     {
-        $attributes = request()->validate([
-            'company_id' => 'required|exists:companies,id',
-            'name' => 'required|min:3|max:100',
-            'surname' => 'required|min:3|max:100',
-            'email' => 'required|email',
-            'telephone' => 'required|min:10|numeric',
-            'emp_start_date' => 'required',
-        ]);
-
-        $employee->update($attributes);
+        $existingEmployee = Employee::find($id);
+        if($existingEmployee){
+            $existingEmployee->company_id = $request['company_id'];
+            $existingEmployee->name = $request['name'];
+            $existingEmployee->surname = $request['surname'];
+            $existingEmployee->email = $request['email'];
+            $existingEmployee->telephone = $request['telephone'];
+            $existingEmployee->emp_start_date = $request['emp_start_date'];
+            $existingEmployee->save();
+        }
         return redirect('/employee')->with('success', 'Employee updated successfully!');
     }
 
