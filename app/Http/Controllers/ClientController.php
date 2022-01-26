@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\User;
@@ -24,21 +25,19 @@ class ClientController extends Controller
         return view('admin.client.create');
     }
 
-    public function store()
+    public function store(ClientRequest $request)
     {
-        $client_data = request()->validate([
-            'company_id' => 'required|exists:companies,id',
-            'name' => 'required|min:3|max:100',
-            'surname' => 'required|min:3|max:100',
-            'address' => 'required',
-            'telephone' => 'required|min:9|numeric|unique:clients,telephone'
-        ]);
-        Client::create($client_data);
+        $client_data = new Client;
+        $client_data->company_id = $request['company_id'];
+        $client_data->name = $request['name'];
+        $client_data->surname = $request['surname'];
+        $client_data->address = $request['address'];
+        $client_data->telephone = $request['telephone'];
+        $client_data->save();
 
         // finding all the admins
         $admin = User::where('name', 'prince')->get();
         $company = Company::select()->where('id', $client_data['company_id'])->first();
-        // \dd($company['name']);
 
         // defining notification data
         $notificationData = [
