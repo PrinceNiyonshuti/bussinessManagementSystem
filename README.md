@@ -32,7 +32,7 @@ The system that will administer or manage companies and their employees and clie
 
 [Link To Repository](https://github.com/PrinceNiyonshuti/bussinessManagementSystem.git)
 
-[Link To Deployed App]()
+[Link To Deployed App](https://bms-laravel.herokuapp.com/)
 
 ## 5. Documentation
 
