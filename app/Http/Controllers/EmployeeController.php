@@ -18,6 +18,7 @@ class EmployeeController extends Controller
             'employees' => Employee::latest()->paginate(10)
         ]);
     }
+    
     public function create()
     {
         return view('admin.employee.create');
