@@ -53,5 +53,6 @@ before starting to run the project , make sure you have mailtrap account in orde
     MAIL_FROM_ADDRESS=
 
 ### after run these script 
+    npm install
     php artisan migrate
     php artisan serve
