@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeRequest extends FormRequest
 {
@@ -27,8 +28,8 @@ class EmployeeRequest extends FormRequest
             'company_id' => 'required|exists:companies,id',
             'name' => 'required|min:3|max:100',
             'surname' => 'required|min:3|max:100',
-            'email' => 'required|email',
-            'telephone' => 'required|min:9|numeric',
+            'email' =>['required','email', Rule::unique('employees', 'email')->ignore($this->employee)],
+            'telephone' =>['required', 'numeric','min:9', Rule::unique('employees', 'telephone')->ignore($this->employee)],
             'emp_start_date' => 'required',
         ];
     }

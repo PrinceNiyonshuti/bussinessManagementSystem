@@ -45,7 +45,7 @@ class CompanyController extends Controller
         // $admin->notify(new NotifyAdmin($notificationData));
         Notification::send($admin, new NotifyAdmin($notificationData));
 
-        return redirect('/company')->with('success', 'Company created successfully!');;
+        return redirect('/company')->with('success', 'Company created successfully!');
     }
 
     public function edit(Company $company)
