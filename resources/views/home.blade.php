@@ -52,7 +52,7 @@
                     </div>
                     <div class="p-6 content-center">
                         <h2 class="mb-2 text-2xl font-medium text-gray-800">{{ $company->name }}</h2>
-                        <a href="/view/{{ $company->id }}" class="text-base text-indigo-600">Read More </a>
+                        <a href="/view/{{ $company->name }}" class="text-base text-indigo-600">Read More </a>
                     </div>
                 </div>
             </div>
