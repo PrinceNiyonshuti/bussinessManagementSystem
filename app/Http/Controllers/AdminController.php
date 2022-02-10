@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    //
     public function create()
     {
         $analytics = [
@@ -17,7 +16,6 @@ class AdminController extends Controller
             'employees_count' => Employee::count(),
             'clients_count' => Client::count(),
         ];
-        // dd($analytics['companies_count']);
         return view('admin.index', ['analytics' => $analytics]);
     }
 }
