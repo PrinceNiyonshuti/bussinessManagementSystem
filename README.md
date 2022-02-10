@@ -56,3 +56,5 @@ before starting to run the project , make sure you have mailtrap account in orde
     npm install
     php artisan migrate
     php artisan serve
+
+

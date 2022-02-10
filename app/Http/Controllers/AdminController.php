@@ -12,10 +12,12 @@ class AdminController extends Controller
     //
     public function create()
     {
-        return view('admin.index',[
-            'companies'=> Company::count(),
-            'employees'=> Employee::count(),
-            'clients'=> Client::count(),
-        ]);
+        $analytics = [
+            'companies_count' => Company::count(),
+            'employees_count' => Employee::count(),
+            'clients_count' => Client::count(),
+        ];
+        // dd($analytics['companies_count']);
+        return view('admin.index', ['analytics' => $analytics]);
     }
 }

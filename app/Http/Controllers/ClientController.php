@@ -37,7 +37,9 @@ class ClientController extends Controller
 
         // finding all the admins
         $admin = User::where('name', 'prince')->get();
-        $company = Company::select()->where('id', $client_data['company_id'])->first();
+        // $company = Company::select()->where('id', $client_data['company_id'])->first();
+        $company = $client_data->client;
+        
 
         // defining notification data
         $notificationData = [

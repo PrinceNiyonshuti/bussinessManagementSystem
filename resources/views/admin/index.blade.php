@@ -3,7 +3,7 @@
         <x-sideBar />
         <div class="w-full px-4 py-2 bg-gray-200 lg:w-full">
             <div class="container mx-auto mt-12">
-                <x-badgeCounter :companies="$companies" :employees="$employees" :clients="$clients" />
+                <x-badgeCounter :companies="$analytics['companies_count']" :employees="$analytics['employees_count']" :clients="$analytics['clients_count']" />
                 <div class="flex flex-col mt-8">
                     <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                     </div>
