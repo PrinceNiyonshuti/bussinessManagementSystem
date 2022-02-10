@@ -58,4 +58,6 @@ before starting to run the project , make sure you have mailtrap account in orde
     Run php artisan key:generate
     Run php artisan migrate
     Run php artisan db:seed
+    Run php artisan storage:link
+    Run php artisan queue:work
     Run php artisan serve
