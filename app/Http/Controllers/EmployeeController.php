@@ -6,9 +6,8 @@ use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\NotifyAdmin;
 use Illuminate\Support\Str;
+use App\services\NotifyAdminUserService;
 
 class EmployeeController extends Controller
 {
@@ -18,7 +17,7 @@ class EmployeeController extends Controller
             'employees' => Employee::latest()->paginate(10)
         ]);
     }
-    
+
     public function create()
     {
         return view('admin.employee.create');
@@ -36,15 +35,13 @@ class EmployeeController extends Controller
         $employee_data['emp_number'] = Str::random(7);
         $employee_data->save();
 
-        // finding all the admins
-        $admin = User::where('name', 'prince')->get();
-
         // defining notification data
         $notificationData = [
             'body' => 'New employee called ' . $employee_data['name'] . ' , have been created',
             'footer' => 'Thank you for using and trusting in Business Management System'
         ];
-        Notification::send($admin, new NotifyAdmin($notificationData));
+
+        (new NotifyAdminUserService)->notifyAdminUser($notificationData);
 
         return redirect('/employee')->with('success', 'Employee created successfully!');;
     }
@@ -56,10 +53,10 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function update(EmployeeRequest $request,$id)
+    public function update(EmployeeRequest $request, $id)
     {
         $existingEmployee = Employee::find($id);
-        if($existingEmployee){
+        if ($existingEmployee) {
             $existingEmployee->company_id = $request['company_id'];
             $existingEmployee->name = $request['name'];
             $existingEmployee->surname = $request['surname'];
